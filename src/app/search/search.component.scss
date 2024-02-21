@@ -1,0 +1,11 @@
+small {
+  color: var(--ion-color-medium);
+}
+
+.song-sheet {
+  --height: auto;
+
+  .image {
+    border-radius: 8px;
+  }
+}

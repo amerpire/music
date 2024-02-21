@@ -1,0 +1,103 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+
+    <!-- Back button -->
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Search control -->
+    <ion-searchbar (ionChange)="search()"
+                   [formControl]="searchControl"
+                   [placeholder]="'YouTube Search'">
+    </ion-searchbar>
+
+    <!-- Progress bar -->
+    @if (loading) {
+      <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+  @if (songs.length) {
+    <ion-list>
+      @for (song of songs; track song.video_id) {
+        <ion-item [button]="true"
+                  (click)="openSheet(song, songSheet)"
+                  [disabled]="loading">
+
+          <!-- Avatar -->
+          <ion-avatar slot="start">
+            <img alt="Thumbnail" [src]="song.thumbnail"/>
+          </ion-avatar>
+
+          <!-- Info -->
+          <ion-label class="ion-text-wrap">
+            <h3>{{ song.title }}</h3>
+            <small>{{ song.author }} &middot; {{ song.view_count }} views &middot; {{ song.time }}</small>
+          </ion-label>
+
+          <!-- Is downloaded -->
+          @if (song.downloaded) {
+            <ion-icon color="success" name="checkmark" slot="end"></ion-icon>
+          }
+        </ion-item>
+      }
+    </ion-list>
+  } @else {
+    <p class="ion-margin ion-text-center">
+      Explore endless music possibilities! Start by searching for your favorite songs or artists to create your
+      personalized playlist.
+    </p>
+  }
+</ion-content>
+
+<!-- Song modal sheet -->
+<ion-modal #songSheet
+           [breakpoints]="[0, 1]"
+           [canDismiss]="!downloading"
+           [initialBreakpoint]="1"
+           class="song-sheet">
+  <ng-template>
+    <div class="ion-padding">
+
+      <!-- Thumbnail -->
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="5">
+            <img class="image" alt="Thumbnail" [src]="songSelected.thumbnail"/>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- Info -->
+      <ion-label class="ion-text-center">
+        <h3>{{ songSelected.title }}</h3>
+        <p>{{ songSelected.author }} &middot; {{ songSelected.view_count }} views &middot; {{ songSelected.time }}</p>
+      </ion-label>
+
+      <!-- Download -->
+      <ion-button (click)="download()"
+                  [disabled]="downloading || songSelected.downloaded"
+                  class="ion-margin-top"
+                  expand="block">
+        @if (songSelected.downloaded) {
+          Downloaded
+        } @else if (downloading) {
+          @if (downloadingProgress === 0) {
+            <ion-progress-bar color="dark" type="indeterminate"></ion-progress-bar>
+          } @else {
+            <ion-progress-bar color="dark" [buffer]="downloadingBuffer" [value]="downloadingProgress"></ion-progress-bar>
+          }
+        } @else {
+          Download
+        }
+      </ion-button>
+    </div>
+  </ng-template>
+</ion-modal>
