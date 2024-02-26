@@ -7,6 +7,7 @@ import { SystemService } from '@app/shared/services/system.service';
 import { UtilsService } from '@app/shared/services/utils.service';
 import { RangeCustomEvent } from '@ionic/angular';
 import {
+  ActionSheetController,
   IonButton,
   IonButtons,
   IonCol,
@@ -29,9 +30,10 @@ import {
   IonTitle,
   IonToolbar,
   ModalController,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, arrowRedo, pause, play, playSkipBack, playSkipForward, trash } from 'ionicons/icons';
+import { add, ellipsisHorizontal, pause, play, playSkipBack, playSkipForward, trash } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 import { Media, MEDIA_STATUS, MediaObject } from '@awesome-cordova-plugins/media/ngx';
 import { SrcHandlerDirective } from '@app/shared/classes/src-handler.directive';
@@ -84,7 +86,7 @@ export class HomePage implements OnInit, OnDestroy {
   loading = true;
 
   /** Selected song to play. */
-  songSelected?: SongYoutube;
+  songSelected: SongYoutube | null = null;
 
   /** Player song instance.  */
   player!: MediaObject;
@@ -110,23 +112,26 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(private modalController: ModalController,
               private media: Media,
               private changeDetectorRef: ChangeDetectorRef,
+              private toastController: ToastController,
+              private actionSheetController: ActionSheetController,
               private systemService: SystemService) {
     addIcons({
       add,
-      arrowRedo,
       trash,
       playSkipBack,
       playSkipForward,
       play,
       pause,
+      ellipsisHorizontal,
     });
   }
 
   ngOnInit(): void {
 
     /** Load the songs. */
+    this.systemService.loadSongs();
     this.subscriptions.add(
-      this.systemService.loadSongs().subscribe({
+      this.systemService.songs.subscribe({
         next: (songs: SongYoutube[] | null): void => {
           if (songs) {
             this.songs = songs;
@@ -221,12 +226,44 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  songSelectFull(modalSheet: IonModal): void {
-    modalSheet.present().then();
-  }
-
   seekTo(event: RangeCustomEvent): void {
     this.player.seekTo((this.player.getDuration() * (Number(event.detail.value) / 100)) * 1000);
     this.playerKnobMoving = false;
+  }
+
+  openModal(modalSheet: IonModal): void {
+    modalSheet.present().then();
+  }
+
+  songActions(song: SongYoutube): void {
+    this.actionSheetController.create({
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: (): void => {
+          if (this.songSelected?.video_id === song.video_id) {
+            this.songSelected = null;
+            if (this.player) {
+              this.player.stop();
+            }
+          }
+          this.systemService.songDelete(song).subscribe({
+            next: (deleted: boolean): void => {
+              if (deleted) {
+                this.toastController.create({
+                  message: `${song.title} has deleted!`,
+                  duration: 3000,
+                }).then((toast: HTMLIonToastElement): void => {
+                  toast.present().then();
+                });
+              }
+            },
+          });
+        },
+      }],
+    }).then((action: HTMLIonActionSheetElement): void => {
+      action.present().then();
+    });
   }
 }

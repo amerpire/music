@@ -37,6 +37,11 @@
             </h3>
             <small>{{ song.author }} &middot; {{ song.time }}</small>
           </ion-label>
+          <ion-buttons slot="end">
+            <ion-button (click)="$event.stopPropagation(); songActions(song)">
+              <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       }
     </ion-list>
@@ -52,7 +57,7 @@
 
 <!-- Footer -->
 @if (songSelected) {
-  <ion-footer (click)="songSelectFull(playerSheet)">
+  <ion-footer (click)="openModal(playerSheet)">
 
     <!-- Player progress -->
     <ion-progress-bar [value]="playerProgressControl.value / 100"></ion-progress-bar>
@@ -146,30 +151,4 @@
     </div>
   </ng-template>
 </ion-modal>
-
-<!-- Song modal sheet -->
-<ion-modal #menuSheet
-           [breakpoints]="[0, 1]"
-           [initialBreakpoint]="1"
-           class="menu-sheet">
-  <ng-template>
-    <div>
-      <ion-list>
-
-        <!-- Share -->
-        <ion-item [button]="true" lines="none">
-          <ion-icon name="arrow-redo" slot="start"></ion-icon>
-          <ion-label>Share</ion-label>
-        </ion-item>
-
-        <!-- Delete -->
-        <ion-item [button]="true" lines="none">
-          <ion-icon name="trash" slot="start"></ion-icon>
-          <ion-label>Delete</ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ng-template>
-</ion-modal>
-
 

@@ -109,10 +109,12 @@ export class SearchComponent implements OnDestroy {
           this.songs = songs;
 
           /** Mark the song if it's already downloaded. */
-          for (const song of this.songs) {
-            song.downloaded = this.systemService.songs.some((item: SongYoutube): boolean => (
-              item.video_id === song.video_id
-            ));
+          if (this.systemService.songs.value) {
+            for (const song of this.songs) {
+              song.downloaded = this.systemService.songs.value.some((item: SongYoutube): boolean => (
+                item.video_id === song.video_id
+              ));
+            }
           }
           this.loading = false;
           this.searchControl.enable();
@@ -154,8 +156,8 @@ export class SearchComponent implements OnDestroy {
             next: (saved: boolean): void => {
               if (saved) {
                 this.toastController.create({
-                  message: 'Party alert! Song downloaded. Let\'s ignite the dance floor!',
-                  duration: 5000,
+                  message: `${this.songSelected.title} has downloaded!`,
+                  duration: 3000,
                 }).then((toast: HTMLIonToastElement): void => {
                   toast.present().then();
                 });
