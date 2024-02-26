@@ -6,7 +6,6 @@ import { SongYoutube } from '@app/shared/interfaces/song-youtube';
 import { ApiService } from '@app/shared/services/api.service';
 import { SystemService } from '@app/shared/services/system.service';
 import {
-  IonAvatar,
   IonButton,
   IonButtons,
   IonCol,
@@ -21,6 +20,7 @@ import {
   IonProgressBar,
   IonRow,
   IonSearchbar,
+  IonThumbnail,
   IonToolbar,
   ModalController,
   ToastController,
@@ -47,11 +47,11 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     IonProgressBar,
     IonLabel,
-    IonAvatar,
     IonModal,
     IonGrid,
     IonRow,
     IonCol,
+    IonThumbnail,
   ],
 })
 export class SearchComponent implements OnDestroy {
@@ -146,7 +146,6 @@ export class SearchComponent implements OnDestroy {
         if (event.type === HttpEventType.DownloadProgress) {
           this.downloadingProgress = Math.round((100 * event.loaded) / (event.total || 0)) / 100;
           this.downloadingBuffer = this.downloadingProgress + 0.06;
-          console.log(this.downloadingProgress, this.downloadingBuffer);
         }
 
         /** Download file. */

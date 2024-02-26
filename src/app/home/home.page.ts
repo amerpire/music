@@ -5,10 +5,8 @@ import { SearchComponent } from '@app/search/search.component';
 import { SongYoutube } from '@app/shared/interfaces/song-youtube';
 import { SystemService } from '@app/shared/services/system.service';
 import { UtilsService } from '@app/shared/services/utils.service';
-import { Media, MEDIA_STATUS, MediaObject } from '@ionic-native/media/ngx';
 import { RangeCustomEvent } from '@ionic/angular';
 import {
-  IonAvatar,
   IonButton,
   IonButtons,
   IonCol,
@@ -35,6 +33,8 @@ import {
 import { addIcons } from 'ionicons';
 import { add, arrowRedo, pause, play, playSkipBack, playSkipForward, trash } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
+import { Media, MEDIA_STATUS, MediaObject } from '@awesome-cordova-plugins/media/ngx';
+import { SrcHandlerDirective } from '@app/shared/classes/src-handler.directive';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +50,6 @@ import { Subscription } from 'rxjs';
     IonFabButton,
     IonIcon,
     IonSpinner,
-    IonAvatar,
     IonItem,
     IonLabel,
     IonList,
@@ -66,6 +65,7 @@ import { Subscription } from 'rxjs';
     IonProgressBar,
     CommonModule,
     ReactiveFormsModule,
+    SrcHandlerDirective,
   ],
   providers: [
     Media,

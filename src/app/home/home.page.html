@@ -28,9 +28,9 @@
         <ion-item [button]="true"
                   lines="none"
                   (click)="songSelect(song)">
-          <ion-avatar slot="start">
-            <img alt="Thumbnail" [src]="song.thumbnail"/>
-          </ion-avatar>
+          <ion-thumbnail class="thumbnail" slot="start">
+            <img alt="Thumbnail" appSrcHandler [src]="song.thumbnail"/>
+          </ion-thumbnail>
           <ion-label>
             <h3 class="text-truncate" [class.text-primary]="songSelected?.video_id === song.video_id">
               {{ song.title }}
@@ -60,7 +60,7 @@
     <!-- Current selected song -->
     <ion-toolbar>
       <ion-item lines="none">
-        <ion-thumbnail slot="start">
+        <ion-thumbnail class="thumbnail" slot="start">
           <img alt="Thumbnail" [src]="songSelected.thumbnail"/>
         </ion-thumbnail>
         <ion-label>
@@ -87,7 +87,10 @@
 
       <!-- Cover -->
       <div class="cover">
-        <img alt="Thumbnail" class="cover" [src]="songSelected.thumbnail"/>
+        <img [src]="songSelected.thumbnail"
+             alt="Thumbnail"
+             appSrcHandler
+             class="cover"/>
       </div>
 
       <!-- Player -->

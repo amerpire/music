@@ -28,6 +28,15 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+ion-thumbnail.thumbnail {
+  --size: 40px;
+  --border-radius: 6px;
+}
+
 .m-0 {
   margin: 0 !important;
 }
@@ -35,8 +44,4 @@
 .text-truncate {
   overflow: hidden !important;
   white-space: nowrap;
-}
-
-.text-primary {
-  color: var(--ion-color-primary);
 }
