@@ -34,7 +34,7 @@
 
 ion-thumbnail.thumbnail {
   --size: 40px;
-  --border-radius: 6px;
+  --border-radius: 8px;
 }
 
 .m-0 {
@@ -44,4 +44,15 @@ ion-thumbnail.thumbnail {
 .text-truncate {
   overflow: hidden !important;
   white-space: nowrap;
+}
+
+.auto-height-sheet {
+  --height: auto;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }

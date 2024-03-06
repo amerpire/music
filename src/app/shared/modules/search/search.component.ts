@@ -1,33 +1,15 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { GetParams } from '@app/shared/interfaces/get-params';
-import { SongYoutube } from '@app/shared/interfaces/song-youtube';
-import { ApiService } from '@app/shared/services/api.service';
-import { SystemService } from '@app/shared/services/system.service';
-import {
-  IonButton,
-  IonButtons,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonModal,
-  IonProgressBar,
-  IonRow,
-  IonSearchbar,
-  IonThumbnail,
-  IonToolbar,
-  ModalController,
-  ToastController,
-} from '@ionic/angular/standalone';
+import { GetParams } from '@interfaces/get-params';
+import { ApiService } from '@services/api.service';
+import { SystemService } from '@services/system.service';
+import { IonModal, ModalController, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowBack, checkmark } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
+import { IonicModule } from '@ionic/angular';
+import { Song, SongApi } from '@app/shared';
 
 @Component({
   selector: 'app-search',
@@ -35,23 +17,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search.component.scss'],
   standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonButton,
-    IonIcon,
-    IonButtons,
-    IonSearchbar,
-    IonContent,
-    IonList,
-    IonItem,
+    IonicModule,
     ReactiveFormsModule,
-    IonProgressBar,
-    IonLabel,
-    IonModal,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonThumbnail,
   ],
 })
 export class SearchComponent implements OnDestroy {
@@ -61,21 +28,21 @@ export class SearchComponent implements OnDestroy {
   private subscriptionDownload: Subscription | undefined;
 
   /** Search form control. */
-  searchControl: FormControl<string | null> = new FormControl<string | null>(null);
+  protected readonly searchControl: FormControl<string | null> = new FormControl<string | null>(null);
 
   /** Api loading indicator. */
-  loading = false;
+  protected loading = false;
 
   /** YouTube's songs that being searched. */
-  songs: SongYoutube[] = [];
+  protected songs: SongApi[] = [];
 
   /** Selected song to be shown in modal sheet. */
-  songSelected!: SongYoutube;
+  protected songSelected!: SongApi;
 
   /** Api downloading indicator. */
-  downloading = false;
-  downloadingBuffer = 0.06;
-  downloadingProgress = 0;
+  protected downloading = false;
+  protected downloadingBuffer = 0.06;
+  protected downloadingProgress = 0;
 
   constructor(private modalController: ModalController,
               private toastController: ToastController,
@@ -84,45 +51,42 @@ export class SearchComponent implements OnDestroy {
     addIcons({ arrowBack, checkmark });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptionSearch?.unsubscribe();
-    this.subscriptionDownload?.unsubscribe();
+  private updateDownloadedStatus(): void {
+    for (const song of this.songs) {
+      song.downloaded = this.systemService.songs.value.some((item: Song): boolean => (
+        item.id === song.video_id
+      ));
+    }
   }
 
-  closeModal(): void {
+  protected closeModal(): void {
     this.modalController.dismiss().then();
   }
 
-  openSheet(song: SongYoutube, modalSheet: IonModal): void {
+  protected openSheet(song: SongApi, modalSheet: IonModal): void {
     this.songSelected = song;
     modalSheet.present().then();
   }
 
-  search(): void {
+  protected search(): void {
     const value: string | null = this.searchControl.value;
     if (value) {
       this.loading = true;
       this.searchControl.disable();
       this.subscriptionSearch?.unsubscribe();
       this.subscriptionSearch = this.apiService.search({ search: value }).subscribe({
-        next: (songs: SongYoutube[]): void => {
+        next: (songs: SongApi[]): void => {
+          /** Store API songs. */
           this.songs = songs;
-
-          /** Mark the song if it's already downloaded. */
-          if (this.systemService.songs.value) {
-            for (const song of this.songs) {
-              song.downloaded = this.systemService.songs.value.some((item: SongYoutube): boolean => (
-                item.video_id === song.video_id
-              ));
-            }
-          }
+          /** Update downloaded status. */
+          this.updateDownloadedStatus();
           this.loading = false;
           this.searchControl.enable();
         },
         error: (): void => {
           this.toastController.create({
             message: 'Oops! Something went wrong. Please try again later.',
-            duration: 5000,
+            duration: 2000,
           }).then((toast: HTMLIonToastElement): void => {
             toast.present().then();
           });
@@ -133,7 +97,7 @@ export class SearchComponent implements OnDestroy {
     }
   }
 
-  download(): void {
+  protected download(): void {
     this.downloading = true;
     this.downloadingBuffer = 0.06;
     this.downloadingProgress = 0;
@@ -152,16 +116,12 @@ export class SearchComponent implements OnDestroy {
 
         /** Download file. */
         else if (event.type === HttpEventType.Response) {
-          this.systemService.saveFile(event.body as Blob, this.songSelected).subscribe({
+          this.systemService.songSave(event.body as Blob, this.songSelected).subscribe({
             next: (saved: boolean): void => {
               if (saved) {
-                this.toastController.create({
-                  message: `${this.songSelected.title} has downloaded!`,
-                  duration: 3000,
-                }).then((toast: HTMLIonToastElement): void => {
-                  toast.present().then();
-                });
                 this.downloading = false;
+                /** Update downloaded status. */
+                this.updateDownloadedStatus();
               }
             },
           });
@@ -171,5 +131,10 @@ export class SearchComponent implements OnDestroy {
         this.downloading = false;
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionSearch?.unsubscribe();
+    this.subscriptionDownload?.unsubscribe();
   }
 }

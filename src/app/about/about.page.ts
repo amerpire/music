@@ -1,16 +1,7 @@
 import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
 import { AboutResource } from '@app/shared/interfaces/about-resource';
-import {
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonItem, IonLabel, IonList } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-about',
@@ -18,9 +9,6 @@ import {
   styleUrls: ['about.page.scss'],
   standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonList,
     IonItem,

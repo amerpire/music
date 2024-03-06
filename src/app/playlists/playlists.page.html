@@ -1,0 +1,48 @@
+<ion-content>
+
+  <!-- Fab buttons -->
+  <ion-fab horizontal="end"
+           slot="fixed"
+           vertical="bottom">
+    <ion-fab-button (click)="openSheet()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- List -->
+  @if (loading) {
+    <div class="loading">
+      <ion-spinner [color]="'primary'"></ion-spinner>
+    </div>
+  } @else if (playlists.length) {
+    @for (playlist of playlists; track playlist.id) {
+      {{ playlist.name }}
+    }
+  } @else {
+    <p class="ion-margin ion-text-center">
+      Empty playlist?
+      <br>
+      No problem! Start making your playlist and fill it up with your music vibe. Let's get the party
+      started!
+    </p>
+  }
+</ion-content>
+
+<!-- Playlist form -->
+<ion-modal #formSheet
+           [breakpoints]="[0, 1]"
+           [canDismiss]="!formControl.disabled"
+           [initialBreakpoint]="1"
+           class="auto-height-sheet">
+  <ng-template>
+    <div class="ion-padding">
+      <form (submit)="$event.preventDefault(); create()">
+        <ion-input [formControl]="formControl"
+                   enterkeyhint="enter"
+                   fill="outline"
+                   placeholder="Name">
+        </ion-input>
+      </form>
+    </div>
+  </ng-template>
+</ion-modal>

@@ -6,6 +6,7 @@ import { AppComponent } from '@app/app.component';
 import { routes } from '@app/app.routes';
 import { environment } from '@environments/environment';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import { Media } from '@awesome-cordova-plugins/media/ngx';
 
 if (!environment.development) {
   enableProdMode();
@@ -17,5 +18,6 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideHttpClient(),
     provideRouter(routes),
+    Media,
   ],
-});
+}).then();

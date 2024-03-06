@@ -1,0 +1,63 @@
+@if (song) {
+  <div class="content">
+
+    <!-- Cover -->
+    <div class="cover">
+      <img [src]="song.init.thumbnail"
+           alt="Thumbnail"
+           appSrcHandler
+           class="cover"/>
+    </div>
+
+    <!-- Player -->
+    <div class="player ion-padding-horizontal ion-padding-bottom">
+
+      <!-- Info -->
+      <div class="ion-text-center">
+        <h2 class="m-0">{{ song.init.title }}</h2>
+        <small>{{ song.init.author }}</small>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress">
+
+        <!-- Progress -->
+        <small>{{ progressTime }}</small>
+
+        <!-- Bar -->
+        <ion-range (ionKnobMoveEnd)="seekTo($event)"
+                   (ionKnobMoveStart)="progressControlActive()"
+                   [formControl]="progressControl"
+                   [max]="100"
+                   class="ion-margin-horizontal">
+        </ion-range>
+
+        <!-- Song duration -->
+        <small>{{ durationTime }}</small>
+      </div>
+
+      <!-- Control -->
+      <div class="control">
+
+        <!-- Previous -->
+        <ion-buttons>
+          <ion-button (click)="change(false)">
+            <ion-icon slot="icon-only" name="play-skip-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <!-- Play -->
+        <ion-button class="play ion-margin-horizontal" color="dark" (click)="togglePlayer()">
+          <ion-icon [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+        </ion-button>
+
+        <!-- Next -->
+        <ion-buttons>
+          <ion-button (click)="change(true)">
+            <ion-icon slot="icon-only" name="play-skip-forward"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+  </div>
+}

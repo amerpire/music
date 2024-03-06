@@ -10,7 +10,6 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "strictPropertyInitialization": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -30,6 +29,21 @@
       ],
       "@environments/*": [
         "src/environments/*"
+      ],
+      "@services/*": [
+        "src/app/shared/services/*"
+      ],
+      "@modules/*": [
+        "src/app/shared/modules/*"
+      ],
+      "@interfaces/*": [
+        "src/app/shared/interfaces/*"
+      ],
+      "@classes/*": [
+        "src/app/shared/classes/*"
+      ],
+      "@functions/*": [
+        "src/app/shared/functions/*"
       ]
     },
     "useDefineForClassFields": false
