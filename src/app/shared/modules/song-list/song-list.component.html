@@ -1,0 +1,26 @@
+<ion-list>
+  @for (song of songs; track song.id) {
+    <ion-item [button]="true"
+              lines="none"
+              (click)="play(song)">
+      <ion-thumbnail class="thumbnail" slot="start">
+        <img alt="Thumbnail" appSrcHandler [src]="song.init.thumbnail"/>
+      </ion-thumbnail>
+      <ion-label>
+        <h3 class="text-truncate"
+            [class.text-primary]="playerSong?.id === song.id">
+          {{ song.init.title }}
+        </h3>
+        <small>{{ song.init.author }} &middot; {{ song.init.time }}</small>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="$event.stopPropagation(); songActions(song)">
+          <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  }
+  <ion-item lines="none">
+    <ion-label class="ion-text-center">{{ songs.length }} Songs</ion-label>
+  </ion-item>
+</ion-list>

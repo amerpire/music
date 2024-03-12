@@ -1,7 +1,22 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { alert, disc, musicalNote } from 'ionicons/icons';
+import {
+  add,
+  arrowBack,
+  checkmark,
+  disc,
+  ellipsisHorizontal,
+  ellipsisVertical,
+  musicalNote,
+  pause,
+  pencil,
+  play,
+  playSkipBack,
+  playSkipForward,
+  remove,
+  trash,
+} from 'ionicons/icons';
 import { Tab } from '@interfaces/tab';
 import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { PlayerService } from '@services/player.service';
@@ -33,11 +48,6 @@ export class AppComponent implements OnInit {
       icon: 'disc',
       name: 'Playlists',
     },
-    {
-      tab: 'about',
-      icon: 'alert',
-      name: 'About',
-    },
   ];
 
   protected tabSelected: Tab = this.tabs[0];
@@ -54,9 +64,20 @@ export class AppComponent implements OnInit {
 
     /** Initialize the icons. */
     addIcons({
+      add,
+      trash,
+      playSkipBack,
+      playSkipForward,
+      play,
+      pause,
+      ellipsisHorizontal,
+      ellipsisVertical,
       musicalNote,
-      alert,
       disc,
+      arrowBack,
+      checkmark,
+      pencil,
+      remove,
     });
   }
 

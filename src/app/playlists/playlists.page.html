@@ -1,10 +1,18 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Playlists</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
 <ion-content>
 
   <!-- Fab buttons -->
   <ion-fab horizontal="end"
            slot="fixed"
            vertical="bottom">
-    <ion-fab-button (click)="openSheet()">
+    <ion-fab-button (click)="create()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -15,9 +23,29 @@
       <ion-spinner [color]="'primary'"></ion-spinner>
     </div>
   } @else if (playlists.length) {
-    @for (playlist of playlists; track playlist.id) {
-      {{ playlist.name }}
-    }
+    <ion-grid>
+      <ion-row>
+        @for (playlist of playlists; track playlist.id) {
+          <ion-col size="6" [routerLink]="playlist.id" routerDirection="forward">
+
+            <!-- Thumbnails -->
+            <div class="thumbnails ion-margin-bottom">
+              @for (i of [0, 1, 2, 3]; track i) {
+                @if (playlist.thumbnails[i]) {
+                  <div class="thumbnail" [style.background-image]="'url('+playlist.thumbnails[i]+')'"></div>
+                }
+              }
+            </div>
+
+            <!-- Name -->
+            <ion-label class="ion-margin-top">
+              <h2>{{ playlist.name }}</h2>
+              <p>{{ playlist.songs.length }} Songs</p>
+            </ion-label>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
   } @else {
     <p class="ion-margin ion-text-center">
       Empty playlist?
@@ -27,22 +55,3 @@
     </p>
   }
 </ion-content>
-
-<!-- Playlist form -->
-<ion-modal #formSheet
-           [breakpoints]="[0, 1]"
-           [canDismiss]="!formControl.disabled"
-           [initialBreakpoint]="1"
-           class="auto-height-sheet">
-  <ng-template>
-    <div class="ion-padding">
-      <form (submit)="$event.preventDefault(); create()">
-        <ion-input [formControl]="formControl"
-                   enterkeyhint="enter"
-                   fill="outline"
-                   placeholder="Name">
-        </ion-input>
-      </form>
-    </div>
-  </ng-template>
-</ion-modal>

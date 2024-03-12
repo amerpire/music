@@ -1,6 +1,7 @@
 import { Injector } from '@angular/core';
 import { SystemService } from '@services/system.service';
 import { Song } from '@app/shared';
+import { removeItemFromBs } from '@functions/remove-item-from-bs';
 
 /** Playlist preference data structure. */
 export interface PlaylistPreference {
@@ -67,6 +68,9 @@ export class Playlist {
    */
   public generateThumbnails(): void {
     this.thumbnails = this.songs.map((song: Song): string => song.init.thumbnail);
+    if (!this.thumbnails.length) {
+      this.thumbnails = ['/assets/playlist-default.png'];
+    }
   }
 
   /** Save to preferences. */
@@ -80,6 +84,7 @@ export class Playlist {
     song.generatePlaylists();
     this.generateThumbnails();
     this.save();
+    this.systemService.toast(`${song.init.title} added to ${this.name}`);
   }
 
   /**
@@ -88,9 +93,9 @@ export class Playlist {
    * If index is not given, all instances of the song
    * will be deleted from the playlist.
    */
-  public remove(song: Song, index: number, generate = true): void {
-    if (index !== -1) {
-      this.songs.splice(index, 1);
+  public remove(song: Song, all = false, generate = true): void {
+    if (!all) {
+      this.songs.splice(this.songs.indexOf(song), 1);
     } else {
       this.songs = this.songs.filter((item: Song): boolean => item !== song);
     }
@@ -99,5 +104,29 @@ export class Playlist {
     }
     this.generateThumbnails();
     this.save();
+  }
+
+  /** Renames this playlist. */
+  public rename(name: string): void {
+    this.name = name;
+    this.save();
+  }
+
+  /**
+   * Destroy this playlist.
+   *
+   * - Delete playlist from subject
+   * - Delete playlist from preference
+   */
+  public destroy(): void {
+    /** Delete playlist from subject. */
+    removeItemFromBs(this.systemService.playlists, this);
+    /** Remove the playlist from the songs by generating their playlist. */
+    for (const song of this.songs) {
+      song.generatePlaylists();
+    }
+    /** Delete playlist from preference. */
+    this.save();
+    this.systemService.toast(`${this.name} deleted`);
   }
 }

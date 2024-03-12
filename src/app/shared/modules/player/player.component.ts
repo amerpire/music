@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { PlayerService } from '@services/player.service';
-import { addIcons } from 'ionicons';
-import { pause, play, playSkipBack, playSkipForward } from 'ionicons/icons';
 import { IonicModule, RangeCustomEvent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SystemService } from '@services/system.service';
@@ -40,14 +38,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
   constructor(private readonly playerService: PlayerService,
               private readonly changeDetectorRef: ChangeDetectorRef,
               private readonly systemService: SystemService) {
-
-    /** Initialize the icons. */
-    addIcons({
-      play,
-      pause,
-      playSkipBack,
-      playSkipForward,
-    });
   }
 
   protected progressControlActive(): void {

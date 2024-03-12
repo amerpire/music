@@ -1,0 +1,22 @@
+.thumbnails {
+  overflow: hidden;
+  border-radius: 12px;
+  display: grid;
+  height: 200px;
+
+  .thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+
+    &:nth-child(3):last-child {
+      grid-column: span 2;
+    }
+
+    &:nth-child(4) {
+      grid-column: 2;
+    }
+  }
+}

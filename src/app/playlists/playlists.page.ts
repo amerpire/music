@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import { add } from 'ionicons/icons';
 import { SystemService } from '@services/system.service';
-import { IonModal } from '@ionic/angular/standalone';
 import { Subscription } from 'rxjs';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Playlist } from '@app/shared';
+import { RouterLink } from '@angular/router';
+import { ModalController } from '@ionic/angular/standalone';
+import { PlaylistFormComponent } from '@modules/playlist-form/playlist-form.component';
 
 @Component({
   selector: 'app-playlists',
@@ -16,6 +16,7 @@ import { Playlist } from '@app/shared';
   imports: [
     IonicModule,
     ReactiveFormsModule,
+    RouterLink,
   ],
 })
 export class PlaylistsPage implements OnInit {
@@ -23,34 +24,25 @@ export class PlaylistsPage implements OnInit {
   /** Subscription to destroy the observables to avoid unnecessary subscriptions. */
   private readonly subscriptions: Subscription = new Subscription();
 
-  /** Form sheet reference. */
-  @ViewChild('formSheet') protected formSheet!: IonModal;
-
   /** Saved playlists. */
   protected playlists: Playlist[] = [];
 
   /** Songs loading indicator. */
   protected loading = true;
 
-  protected formControl: FormControl<string> = new FormControl<string>(
-    '',
-    { validators: Validators.required, nonNullable: true },
-  );
-
-  constructor(private systemService: SystemService) {
-    addIcons({
-      add,
-    });
-  }
-
-  protected openSheet(): void {
-    this.formControl.reset();
-    this.formSheet.present().then();
+  constructor(private readonly systemService: SystemService,
+              private readonly modalController: ModalController) {
   }
 
   protected create(): void {
-    this.systemService.playlistCreate(this.formControl.value);
-    this.formSheet.dismiss().then();
+    this.modalController.create({
+      component: PlaylistFormComponent,
+      initialBreakpoint: 1,
+      breakpoints: [0, 1],
+      cssClass: 'auto-height-sheet',
+    }).then((modal: HTMLIonModalElement): void => {
+      modal.present().then();
+    });
   }
 
   ngOnInit(): void {

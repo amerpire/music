@@ -5,8 +5,6 @@ import { GetParams } from '@interfaces/get-params';
 import { ApiService } from '@services/api.service';
 import { SystemService } from '@services/system.service';
 import { IonModal, ModalController, ToastController } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { arrowBack, checkmark } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { Song, SongApi } from '@app/shared';
@@ -48,7 +46,6 @@ export class SearchComponent implements OnDestroy {
               private toastController: ToastController,
               private systemService: SystemService,
               private apiService: ApiService) {
-    addIcons({ arrowBack, checkmark });
   }
 
   private updateDownloadedStatus(): void {

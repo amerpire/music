@@ -7,11 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'playlists',
-    loadComponent: () => import('./playlists/playlists.page').then(m => m.PlaylistsPage),
-  },
-  {
-    path: 'about',
-    loadComponent: () => import('./about/about.page').then(m => m.AboutPage),
+    loadChildren: () => import('./playlists/playlists.routes').then(m => m.routes),
   },
   {
     path: '',

@@ -76,11 +76,12 @@ export class Song {
       /** Delete song from subject. */
       removeItemFromBs(this.systemService.songs, this);
       /** Remove from playlist. */
-      this.playlists.forEach((playlist: Playlist, index: number) => {
-        playlist.remove(this, -1, false);
+      this.playlists.forEach((playlist: Playlist): void => {
+        playlist.remove(this, true, false);
       });
       /** Delete song from preference. */
       this.save();
+      this.systemService.toast(`${this.init.title} deleted`);
     }).catch((): void => {
       this.systemService.toast(`Unable to delete ${this.init.title}`);
       subject.next(false);
