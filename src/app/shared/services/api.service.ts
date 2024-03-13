@@ -1,9 +1,9 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GetParams } from '@app/shared/interfaces/get-params';
-import { SongYoutube } from '@app/shared/interfaces/song-youtube';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { SongApi } from '@app/shared';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class ApiService {
     });
   }
 
-  search(params: GetParams): Observable<SongYoutube[]> {
-    return this.http.get<SongYoutube[]>(`${this.base}search`, { params });
+  search(params: GetParams): Observable<SongApi[]> {
+    return this.http.get<SongApi[]>(`${this.base}search`, { params });
   }
 }

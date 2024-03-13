@@ -1,3 +1,42 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-content>
+
+    <!-- Tabs -->
+    <ion-tabs (ionTabsDidChange)="tabChange($event)">
+
+      <!-- Current selected song -->
+      @if (playerSong) {
+        <div (click)="openPlayer()">
+
+          <!-- Player progress -->
+          <ion-progress-bar [value]="playerProgressControl / 100"></ion-progress-bar>
+          <ion-toolbar>
+            <ion-item lines="none">
+              <ion-thumbnail class="thumbnail" slot="start">
+                <img alt="Thumbnail" appSrcHandler [src]="playerSong.init.thumbnail"/>
+              </ion-thumbnail>
+              <ion-label>
+                <h3 class="text-truncate">{{ playerSong.init.title }}</h3>
+                <small>{{ playerSong.init.author }}</small>
+              </ion-label>
+              <ion-buttons slot="end">
+                <ion-button (click)="$event.stopPropagation(); togglePlayer()">
+                  <ion-icon slot="icon-only" [name]="playerIsPlaying ? 'pause' : 'play'"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+          </ion-toolbar>
+        </div>
+      }
+
+      <ion-tab-bar slot="bottom">
+        @for (tab of tabs; track tab.tab) {
+          <ion-tab-button [tab]="tab.tab">
+            <ion-icon [name]="tab.icon"></ion-icon>
+            {{ tab.name }}
+          </ion-tab-button>
+        }
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
 </ion-app>

@@ -32,9 +32,9 @@
                   [disabled]="loading">
 
           <!-- Avatar -->
-          <ion-avatar slot="start">
+          <ion-thumbnail class="thumbnail" slot="start">
             <img alt="Thumbnail" [src]="song.thumbnail"/>
-          </ion-avatar>
+          </ion-thumbnail>
 
           <!-- Info -->
           <ion-label class="ion-text-wrap">
@@ -62,7 +62,7 @@
            [breakpoints]="[0, 1]"
            [canDismiss]="!downloading"
            [initialBreakpoint]="1"
-           class="song-sheet">
+           class="song-sheet auto-height-sheet">
   <ng-template>
     <div class="ion-padding">
 

@@ -1,0 +1,36 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Songs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+
+  <!-- Fab buttons -->
+  <ion-fab horizontal="end"
+           slot="fixed"
+           vertical="bottom">
+    <ion-fab-button (click)="openSearchModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- List -->
+  @if (loading) {
+    <div class="loading">
+      <ion-spinner [color]="'primary'"></ion-spinner>
+    </div>
+  } @else if (songs.length) {
+    <app-song-list [songs]="songs"></app-song-list>
+  } @else {
+    <p class="ion-margin ion-text-center">
+      Empty songs?
+      <br>
+      No problem! Start downloading your favorite songs now and fill it up with your music vibe. Let's get the party
+      started!
+    </p>
+  }
+</ion-content>
+

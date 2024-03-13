@@ -35,7 +35,12 @@
               "src/theme/variables.scss",
               "src/global.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "optimization": {
+              "styles": {
+                "inlineCritical": false
+              }
+            }
           },
           "configurations": {
             "production": {
@@ -69,7 +74,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.local.ts"
+                  "with": "src/environments/environment.production.ts"
                 }
               ]
             }

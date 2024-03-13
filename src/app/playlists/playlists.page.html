@@ -1,0 +1,61 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Playlists</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+
+  <!-- Fab buttons -->
+  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+    <ion-fab-button (click)="create()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- List -->
+  @if (loading) {
+
+    <!-- Loading -->
+    <div class="loading">
+      <ion-spinner [color]="'primary'"></ion-spinner>
+    </div>
+
+  } @else if (playlists.length) {
+    <ion-grid>
+      <ion-row>
+
+        <!-- Playlists -->
+        @for (playlist of playlists; track playlist.id) {
+
+          <!-- Playlist -->
+          <ion-col class="playlist" size="6" [routerLink]="playlist.id" routerDirection="forward">
+
+            <!-- Thumbnails -->
+            <div class="playlist-thumbnails ion-margin-bottom">
+              @for (i of [0, 1, 2, 3]; track i) {
+                @if (playlist.thumbnails[i]) {
+                  <div class="thumbnail"
+                       [class.thumbnail-default]="playlist.thumbnails[i] === '/assets/playlist-default.svg'"
+                       [style.background-image]="'url('+playlist.thumbnails[i]+')'"></div>
+                }
+              }
+            </div>
+
+            <!-- Label -->
+            <div class="playlist-label">{{ playlist.name }}</div>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  } @else {
+    <p class="ion-margin ion-text-center">
+      Empty playlist?
+      <br>
+      No problem! Start making your playlist and fill
+      it up with your music vibe. Let's get the party started!
+    </p>
+  }
+</ion-content>

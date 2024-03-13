@@ -1,0 +1,10 @@
+<div class="ion-padding">
+  <form (submit)="$event.preventDefault(); save()">
+    <ion-input #formInput
+               [formControl]="formControl"
+               enterkeyhint="enter"
+               fill="outline"
+               placeholder="Name">
+    </ion-input>
+  </form>
+</div>

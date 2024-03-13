@@ -1,0 +1,27 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+
+    <!-- Back button -->
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="'..'">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Title -->
+    <ion-title>{{ playlist.name }}</ion-title>
+
+    <!-- Back button -->
+    <ion-buttons slot="end">
+      <ion-button (click)="actions()">
+        <ion-icon name="ellipsis-vertical" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+  <app-song-list [playlist]="playlist" [songs]="playlist.songs"></app-song-list>
+</ion-content>
