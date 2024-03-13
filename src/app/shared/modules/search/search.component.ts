@@ -4,9 +4,27 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GetParams } from '@interfaces/get-params';
 import { ApiService } from '@services/api.service';
 import { SystemService } from '@services/system.service';
-import { IonModal, ModalController, ToastController } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonButtons,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonModal,
+  IonProgressBar,
+  IonRow,
+  IonSearchbar,
+  IonThumbnail,
+  IonToolbar,
+  ModalController,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { Subscription } from 'rxjs';
-import { IonicModule } from '@ionic/angular';
 import { Song, SongApi } from '@app/shared';
 
 @Component({
@@ -15,8 +33,23 @@ import { Song, SongApi } from '@app/shared';
   styleUrls: ['./search.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     ReactiveFormsModule,
+    IonGrid,
+    IonLabel,
+    IonRow,
+    IonCol,
+    IonContent,
+    IonList,
+    IonItem,
+    IonThumbnail,
+    IonProgressBar,
+    IonModal,
+    IonHeader,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonToolbar,
+    IonSearchbar,
   ],
 })
 export class SearchComponent implements OnDestroy {

@@ -44,6 +44,9 @@
       ],
       "@functions/*": [
         "src/app/shared/functions/*"
+      ],
+      "@directives/*": [
+        "src/app/shared/directives/*"
       ]
     },
     "useDefineForClassFields": false

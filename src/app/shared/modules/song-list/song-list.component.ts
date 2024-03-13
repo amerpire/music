@@ -1,12 +1,20 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
+import { SrcHandlerDirective } from '@directives/src-handler.directive';
 import { Playlist, Song } from '@app/shared';
 import { PlayerService } from '@services/player.service';
 import { Subscription } from 'rxjs';
-import { ActionSheetController } from '@ionic/angular/standalone';
+import {
+  ActionSheetController,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonThumbnail,
+} from '@ionic/angular/standalone';
 import { SystemService } from '@services/system.service';
-import { ActionSheetButton } from '@ionic/core/dist/types/components/action-sheet/action-sheet-interface';
+import { ActionSheetButton } from '@ionic/angular';
 
 @Component({
   selector: 'app-song-list',
@@ -14,7 +22,13 @@ import { ActionSheetButton } from '@ionic/core/dist/types/components/action-shee
   styleUrls: ['./song-list.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
+    IonList,
+    IonItem,
+    IonThumbnail,
+    IonLabel,
+    IonButtons,
+    IonButton,
+    IonIcon,
     SrcHandlerDirective,
   ],
 })

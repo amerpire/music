@@ -69,7 +69,7 @@ export class Playlist {
   public generateThumbnails(): void {
     this.thumbnails = this.songs.map((song: Song): string => song.init.thumbnail);
     if (!this.thumbnails.length) {
-      this.thumbnails = ['/assets/playlist-default.png'];
+      this.thumbnails = ['/assets/playlist-default.svg'];
     }
   }
 

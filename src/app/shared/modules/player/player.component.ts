@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { PlayerService } from '@services/player.service';
-import { IonicModule, RangeCustomEvent } from '@ionic/angular';
+import { RangeCustomEvent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SystemService } from '@services/system.service';
 import { Song } from '@app/shared';
+import { IonButton, IonButtons, IonIcon, IonRange } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-player',
@@ -13,9 +14,12 @@ import { Song } from '@app/shared';
   styleUrls: ['./player.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     SrcHandlerDirective,
     ReactiveFormsModule,
+    IonRange,
+    IonButtons,
+    IonButton,
+    IonIcon,
   ],
 })
 export class PlayerComponent implements OnInit, OnDestroy {

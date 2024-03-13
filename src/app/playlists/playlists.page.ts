@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { SystemService } from '@services/system.service';
 import { Subscription } from 'rxjs';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Playlist } from '@app/shared';
 import { RouterLink } from '@angular/router';
-import { ModalController } from '@ionic/angular/standalone';
+import {
+  IonCol,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonRouterLink,
+  IonRow,
+  IonSpinner,
+  IonTitle,
+  IonToolbar,
+  ModalController,
+} from '@ionic/angular/standalone';
 import { PlaylistFormComponent } from '@modules/playlist-form/playlist-form.component';
 
 @Component({
@@ -14,9 +26,19 @@ import { PlaylistFormComponent } from '@modules/playlist-form/playlist-form.comp
   styleUrls: ['./playlists.page.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    IonSpinner,
+    IonGrid,
+    IonRow,
+    IonCol,
     RouterLink,
+    IonRouterLink,
   ],
 })
 export class PlaylistsPage implements OnInit {

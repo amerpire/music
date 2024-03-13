@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonInput, ModalController } from '@ionic/angular/standalone';
 import { SystemService } from '@services/system.service';
-import { IonicModule } from '@ionic/angular';
 import { Playlist } from '@app/shared';
 
 @Component({
@@ -11,8 +10,8 @@ import { Playlist } from '@app/shared';
   styleUrls: ['./playlist-form.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     ReactiveFormsModule,
+    IonInput,
   ],
 })
 export class PlaylistFormComponent implements OnInit {

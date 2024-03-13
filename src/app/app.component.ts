@@ -1,5 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular/standalone';
+import {
+  IonApp,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonProgressBar,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  IonThumbnail,
+  IonToolbar,
+  ModalController,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   add,
@@ -18,20 +33,31 @@ import {
   trash,
 } from 'ionicons/icons';
 import { Tab } from '@interfaces/tab';
-import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { PlayerService } from '@services/player.service';
 import { PlayerComponent } from '@modules/player/player.component';
-import { IonicModule } from '@ionic/angular';
 import { SystemService } from '@services/system.service';
 import { Song } from '@app/shared';
+import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
   imports: [
-    IonicModule,
+    IonApp,
+    IonContent,
+    IonTabs,
+    IonProgressBar,
+    IonToolbar,
+    IonItem,
+    IonThumbnail,
+    IonLabel,
+    IonButtons,
+    IonButton,
+    IonIcon,
     SrcHandlerDirective,
+    IonTabBar,
+    IonTabButton,
   ],
 })
 export class AppComponent implements OnInit {

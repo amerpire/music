@@ -1,12 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SystemService } from '@services/system.service';
-import { ModalController } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonSpinner,
+  IonTitle,
+  IonToolbar,
+  ModalController,
+} from '@ionic/angular/standalone';
 import { Subscription } from 'rxjs';
-import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { SearchComponent } from '@modules/search/search.component';
 import { Song } from '@app/shared';
 import { SongListComponent } from '@modules/song-list/song-list.component';
-import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-songs',
@@ -14,8 +22,14 @@ import { IonicModule } from '@ionic/angular';
   styleUrls: ['songs.page.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    SrcHandlerDirective,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    IonSpinner,
     SongListComponent,
   ],
 })

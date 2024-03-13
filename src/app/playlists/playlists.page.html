@@ -9,9 +9,7 @@
 <ion-content>
 
   <!-- Fab buttons -->
-  <ion-fab horizontal="end"
-           slot="fixed"
-           vertical="bottom">
+  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
     <ion-fab-button (click)="create()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -19,29 +17,35 @@
 
   <!-- List -->
   @if (loading) {
+
+    <!-- Loading -->
     <div class="loading">
       <ion-spinner [color]="'primary'"></ion-spinner>
     </div>
+
   } @else if (playlists.length) {
     <ion-grid>
       <ion-row>
+
+        <!-- Playlists -->
         @for (playlist of playlists; track playlist.id) {
-          <ion-col size="6" [routerLink]="playlist.id" routerDirection="forward">
+
+          <!-- Playlist -->
+          <ion-col class="playlist" size="6" [routerLink]="playlist.id" routerDirection="forward">
 
             <!-- Thumbnails -->
-            <div class="thumbnails ion-margin-bottom">
+            <div class="playlist-thumbnails ion-margin-bottom">
               @for (i of [0, 1, 2, 3]; track i) {
                 @if (playlist.thumbnails[i]) {
-                  <div class="thumbnail" [style.background-image]="'url('+playlist.thumbnails[i]+')'"></div>
+                  <div class="thumbnail"
+                       [class.thumbnail-default]="playlist.thumbnails[i] === '/assets/playlist-default.svg'"
+                       [style.background-image]="'url('+playlist.thumbnails[i]+')'"></div>
                 }
               }
             </div>
 
-            <!-- Name -->
-            <ion-label class="ion-margin-top">
-              <h2>{{ playlist.name }}</h2>
-              <p>{{ playlist.songs.length }} Songs</p>
-            </ion-label>
+            <!-- Label -->
+            <div class="playlist-label">{{ playlist.name }}</div>
           </ion-col>
         }
       </ion-row>
@@ -50,8 +54,8 @@
     <p class="ion-margin ion-text-center">
       Empty playlist?
       <br>
-      No problem! Start making your playlist and fill it up with your music vibe. Let's get the party
-      started!
+      No problem! Start making your playlist and fill
+      it up with your music vibe. Let's get the party started!
     </p>
   }
 </ion-content>

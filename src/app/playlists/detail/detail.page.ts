@@ -1,11 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 import { Playlist } from '@app/shared';
 import { SystemService } from '@services/system.service';
 import { SongListComponent } from '@modules/song-list/song-list.component';
 import { PlaylistFormComponent } from '@modules/playlist-form/playlist-form.component';
-import { ActionSheetController, ModalController } from '@ionic/angular/standalone';
+import {
+  ActionSheetController,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar,
+  ModalController,
+} from '@ionic/angular/standalone';
 import { Location } from '@angular/common';
 
 @Component({
@@ -14,8 +23,14 @@ import { Location } from '@angular/common';
   styleUrls: ['./detail.page.scss'],
   standalone: true,
   imports: [
-    IonicModule,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonTitle,
     RouterLink,
+    IonContent,
     SongListComponent,
   ],
 })
