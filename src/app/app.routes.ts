@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('./playlists/playlists.routes').then(m => m.routes),
   },
   {
+    path: 'channels',
+    loadChildren: () => import('./channels/channels.routes').then( m => m.routes),
+  },
+  {
     path: '',
     redirectTo: 'songs',
     pathMatch: 'full',

@@ -1,0 +1,20 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+
+    <!-- Back button -->
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="'..'">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Title -->
+    <ion-title>{{ channel.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+  <app-song-list [songs]="channel.songs"></app-song-list>
+</ion-content>

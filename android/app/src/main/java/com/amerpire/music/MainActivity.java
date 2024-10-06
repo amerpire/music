@@ -1,4 +1,4 @@
-package yt.music.player;
+package com.amerpire.music;
 
 import com.getcapacitor.BridgeActivity;
 

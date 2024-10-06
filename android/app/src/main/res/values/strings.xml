@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">YT Music</string>
-    <string name="title_activity_main">YT Music</string>
-    <string name="package_name">yt.music.player</string>
-    <string name="custom_url_scheme">yt.music.player</string>
+    <string name="app_name">Amerpire Music</string>
+    <string name="title_activity_main">Amerpire Music</string>
+    <string name="package_name">com.amerpire.music</string>
+    <string name="custom_url_scheme">com.amerpire.music</string>
 </resources>

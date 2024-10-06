@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SrcHandlerDirective } from '@directives/src-handler.directive';
 import { Playlist, Song } from '@app/shared';
-import { PlayerService } from '@services/player.service';
 import { Subscription } from 'rxjs';
 import {
   ActionSheetController,
@@ -15,6 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 import { SystemService } from '@services/system.service';
 import { ActionSheetButton } from '@ionic/angular';
+import { PlayerService } from '@services/player.service';
 
 @Component({
   selector: 'app-song-list',
@@ -53,7 +53,7 @@ export class SongListComponent implements OnInit, OnDestroy {
   }
 
   protected play(song: Song): void {
-    this.playerService.play(song);
+    this.playerService.initiate(song);
   }
 
   protected playlistAction(song: Song, add = true): void {

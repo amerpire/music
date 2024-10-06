@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { PlayerService } from '@services/player.service';
 import { RangeCustomEvent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { SystemService } from '@services/system.service';
 import { Song } from '@app/shared';
 import { IonButton, IonButtons, IonIcon, IonRange } from '@ionic/angular/standalone';
+import { PlayerService } from '@services/player.service';
 
 @Component({
   selector: 'app-player',
@@ -40,8 +39,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   );
 
   constructor(private readonly playerService: PlayerService,
-              private readonly changeDetectorRef: ChangeDetectorRef,
-              private readonly systemService: SystemService) {
+              private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
   protected progressControlActive(): void {
@@ -56,47 +54,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.playerService.togglePlayer();
   }
 
-  protected change(next: boolean): void {
-    let change: number = -1;
-    if (next) {
-      change = 1;
-    }
-
-    /** Songs list. */
-    const songs: Song[] = this.systemService.songs.value;
-
-    /** If we have songs with playing song. */
-    if (this.song) {
-      let index: number = songs.indexOf(this.song);
-
-      /** Go to next song. */
-      if (next) {
-
-        /** If current song is not the last song, play the next song. */
-        if (index !== songs.length - 1) {
-          this.playerService.playIndex(index + change);
-        }
-
-        /** If current song is the last song, play the first song of the list. */
-        else {
-          this.playerService.playIndex(0);
-        }
-      }
-
-      /** Go to previous song. */
-      else {
-
-        /** If current song is not the first song, play the previous song. */
-        if (index !== 0) {
-          this.playerService.playIndex(index + change);
-        }
-
-        /** If current song is the first song, play the last song of the list. */
-        else {
-          this.playerService.playIndex(songs.length - 1);
-        }
-      }
-    }
+  protected changeTrack(next: boolean): void {
+    this.playerService.changeTrack(next);
   }
 
   ngOnInit(): void {
