@@ -21,7 +21,7 @@ A music player app that lets you download and play your favorite songs.
 
 ## ![](installation.svg) Installation
 
-  You can download and install the APK [here](https://). Android app coming soon.
+  You can download and install the APK [here](https://github.com/amerpire/music/releases/download/1.0.0/app-release.apk). Android app coming soon.
 
 ## ![](source-codes.svg) Source codes
 
