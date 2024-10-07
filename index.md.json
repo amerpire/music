@@ -1,7 +1,7 @@
 {
   "version": "0.1.15",
   "source": "home-src",
-  "output": "home-dist",
+  "output": "www",
   "template": true,
   "baseTemplate": null,
   "nameAsTitle": false,
