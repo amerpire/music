@@ -5,7 +5,7 @@ const htmlmin = require("htmlmin");
 const fs = require("fs");
 
 const root = process.cwd();
-const dist = join(root, "home-dist");
+const dist = 'www';
 const src = join(root, "home-src");
 const assets = join(root, join("src", "assets", "home"));
 
