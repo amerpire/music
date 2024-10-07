@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "yt.music.player"
+    namespace "com.amerpire.music"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "yt.music.player"
+        applicationId "com.amerpire.music"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

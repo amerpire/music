@@ -26,6 +26,7 @@ import {
   musicalNote,
   pause,
   pencil,
+  people,
   play,
   playSkipBack,
   playSkipForward,
@@ -33,11 +34,11 @@ import {
   trash,
 } from 'ionicons/icons';
 import { Tab } from '@interfaces/tab';
-import { PlayerService } from '@services/player.service';
 import { PlayerComponent } from '@modules/player/player.component';
 import { SystemService } from '@services/system.service';
 import { Song } from '@app/shared';
 import { SrcHandlerDirective } from '@app/shared/directives/src-handler.directive';
+import { PlayerService } from '@services/player.service';
 
 @Component({
   selector: 'app-root',
@@ -74,6 +75,11 @@ export class AppComponent implements OnInit {
       icon: 'disc',
       name: 'Playlists',
     },
+    {
+      tab: 'channels',
+      icon: 'people',
+      name: 'Channels',
+    },
   ];
 
   protected tabSelected: Tab = this.tabs[0];
@@ -104,6 +110,7 @@ export class AppComponent implements OnInit {
       checkmark,
       pencil,
       remove,
+      people,
     });
   }
 

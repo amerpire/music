@@ -1,0 +1,26 @@
+{
+  "version": "0.1.15",
+  "source": "home-src",
+  "output": "home-dist",
+  "template": true,
+  "baseTemplate": null,
+  "nameAsTitle": false,
+  "firstLineAsTitle": true,
+  "cssVariables": {
+    "--primary": "#dbc66e",
+    "--body-color": "#ddd",
+    "--body-bg": "#121212",
+    "--heading-color": "#fff",
+    "--content-bg": "#1f1f1f"
+  },
+  "extraHead": [
+    "<meta name='author' content='Amerpire'>",
+    "<meta name='keywords' content='youtube, music, playlist, channel, player, download, player'>",
+    "<meta name='description' content='A music player app that lets you download and play your favorite songs.'>",
+    "<meta content='#dbc66e' name='theme-color'>",
+    "<link rel='stylesheet' href='style.css'>",
+    "<link rel='icon' type='image/png' href='favicon.png'>"
+  ],
+  "headingsId": true,
+  "headingsIdSlugify": true
+}

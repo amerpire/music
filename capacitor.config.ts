@@ -2,8 +2,8 @@ import { CapacitorConfig } from '@capacitor/cli';
 import { env } from './envs/env';
 
 const config: CapacitorConfig = {
-  appId: 'yt.music.player',
-  appName: 'YT Music',
+  appId: 'com.amerpire.music',
+  appName: 'Amerpire Music',
   webDir: 'www',
   ...env,
 };

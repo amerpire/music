@@ -27,6 +27,9 @@ export class Channel {
       }
       channel.songs.push(song);
     }
+    for (const channel of channels) {
+      channel.generateThumbnails();
+    }
     return channels;
   }
 
@@ -34,11 +37,12 @@ export class Channel {
   private readonly systemService: SystemService = this.injector.get(SystemService);
 
   /** Thumbnails of songs of this channel. */
-  public readonly thumbnails: string[] = this.songs.map((song: Song): string => song.init.thumbnail);
+  public thumbnails: string[] = [];
 
   /**
    * @param name Name of this channel.
    * @param songs Songs of this channel.
+   * @param injector Injector of this channel.
    */
   protected constructor(public readonly name: string,
                         public readonly songs: Song[],
@@ -56,5 +60,9 @@ export class Channel {
       this.name,
       this.songs.map((item: Song): Song['id'] => item.id),
     );
+  }
+
+  public generateThumbnails(): void {
+    this.thumbnails = this.songs.map((song: Song): string => song.init.thumbnail);
   }
 }

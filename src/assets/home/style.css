@@ -1,0 +1,29 @@
+.wrapper {
+  border-radius: 0.5rem;
+}
+
+h2 img {
+  height: 18px
+}
+
+p:nth-child(3) {
+  display: flex;
+  gap: 1rem;
+}
+
+p:nth-child(3) > img {
+  overflow: hidden;
+  border-radius: 1rem;
+  border: solid 3px #444;
+}
+
+h3 > img,
+h2 > img {
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+  margin-bottom: -8px;
+  margin-right: 4px;
+  background: #eee;
+  border-radius: 0.5rem;
+}

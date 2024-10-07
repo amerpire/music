@@ -1,0 +1,54 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Channels</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Content -->
+<ion-content>
+
+  <!-- List -->
+  @if (loading) {
+
+    <!-- Loading -->
+    <div class="loading">
+      <ion-spinner [color]="'primary'"></ion-spinner>
+    </div>
+
+  } @else if (channels.length) {
+    <ion-grid>
+      <ion-row>
+
+        <!-- Channels -->
+        @for (channel of channels; track channel.name) {
+
+          <!-- Channel -->
+          <ion-col class="channel" size="6" [routerLink]="channel.name" routerDirection="forward">
+
+            <!-- Thumbnails -->
+            <div class="channel-thumbnails ion-margin-bottom">
+              @for (i of [0, 1, 2, 3]; track i) {
+                @if (channel.thumbnails[i]) {
+                  <div class="thumbnail"
+                       [class.thumbnail-default]="channel.thumbnails[i] === '/assets/playlist-default.svg'"
+                       [style.background-image]="'url('+channel.thumbnails[i]+')'"></div>
+                }
+              }
+            </div>
+
+            <!-- Label -->
+            <div class="channel-label">{{ channel.name }}</div>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  } @else {
+    <p class="ion-margin ion-text-center">
+      Empty channels?
+      <br>
+      No problem! Start downloading songs and it will get created automatically!
+    </p>
+  }
+</ion-content>
+
