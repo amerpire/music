@@ -17,7 +17,8 @@
     "ionic-android-open": "ionic cap open android",
     "ionic-android-live": "ionic cap run android -l --external",
     "switch:production": "node bin/switch.mjs production",
-    "switch:local": "node bin/switch.mjs local"
+    "switch:local": "node bin/switch.mjs local",
+    "build-home": "node bin/build.js"
   },
   "private": true,
   "dependencies": {
