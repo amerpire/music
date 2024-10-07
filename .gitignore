@@ -70,3 +70,6 @@ envs/env.ts
 
 .nx/cache
 .nx/workspace-data
+
+home-dist
+home-src
