@@ -123,7 +123,7 @@ export class PlayerService {
       title: song.init.title,
       artist: song.init.author,
       artwork: sizes.map((size: string): MediaImage => {
-        return { src: song.init.thumbnail, sizes: size, type: 'image/png' };
+        return { src: 'src/assets/song-default.png', sizes: size, type: 'image/png' };
       }),
     }).then();
 
